@@ -414,7 +414,18 @@ class ActionUnfollowFollowers(Plugin):
                 list_view = device.find(
                     resourceId=self.ResourceID.LIST,
                 )
-                list_view.scroll(Direction.DOWN)
+                if unfollowed_count == 0:
+                    logger.info(
+                        "Nobody unfollowed, let's just fucking fling already.",
+                        extra={"color": f"{Fore.GREEN}"},
+                    )
+                    list_view.fling(Direction.DOWN)
+                else:
+                    logger.info(
+                        "Scroll to see some other fuckers.",
+                        extra={"color": f"{Fore.GREEN}"},
+                    )
+                    list_view.scroll(Direction.DOWN)
             else:
                 load_more_button = device.find(
                     resourceId=self.ResourceID.ROW_LOAD_MORE_BUTTON
